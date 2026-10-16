@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Web Programming</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@500;600&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f3f5f4;
+      --ink: #1f2a33;
+      --muted: #5d6b75;
+      --accent: #2f6b4f;
+      --card: #ffffff;
+      --border: #dfe5e2;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #14191c;
+        --ink: #e8eeea;
+        --muted: #9aa8a1;
+        --accent: #6fc49a;
+        --card: #1c2327;
+        --border: #2b363b;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at 40% 0%, rgba(47,107,79,.08), transparent 60%),
+        var(--bg);
+      color: var(--ink);
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 96px 24px 64px;
+    }
+    .eyebrow {
+      margin: 0 0 20px;
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    h1 {
+      margin: 0 0 20px;
+      font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+      font-weight: 500;
+      font-size: clamp(44px, 8vw, 96px);
+      line-height: 1.05;
+      letter-spacing: -.02em;
+    }
+    .lead {
+      margin: 0 0 56px;
+      color: var(--muted);
+      font-size: 20px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 24px;
+    }
+    .card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 190px;
+      padding: 28px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      color: inherit;
+      text-decoration: none;
+      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+    }
+    .card:hover, .card:focus-visible {
+      transform: translateY(-3px);
+      border-color: var(--accent);
+      box-shadow: 0 10px 24px rgba(0,0,0,.08);
+      outline: none;
+    }
+    .card h2 {
+      margin: 0 0 10px;
+      font-family: "Source Serif 4", Georgia, serif;
+      font-weight: 600;
+      font-size: 30px;
+    }
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.5;
+    }
+    .arrow {
+      align-self: flex-end;
+      margin-top: 12px;
+      color: var(--accent);
+      font-size: 24px;
+      line-height: 1;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .card { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="eyebrow">Class Exercises · 2026</p>
+    <h1>Web Programming</h1>
+    <p class="lead">Choose a week to open its lessons and practice files.</p>
+
+    <!-- Change each href to match your folder or file names -->
+    <section class="grid">
+      <a class="card" href="week1/">
+        <div>
+          <h2>Week 1</h2>
+          <p>HTML basics, structure, and page exercises.</p>
+        </div>
+        <span class="arrow">&rarr;</span>
+      </a>
+
+      <a class="card" href="week2/">
+        <div>
+          <h2>Week 2</h2>
+          <p>Semantic HTML and page layout elements.</p>
+        </div>
+        <span class="arrow">&rarr;</span>
+      </a>
+
+      <a class="card" href="week3/">
+        <div>
+          <h2>Week 3</h2>
+          <p>CSS fundamentals, selectors, and styling exercises.</p>
+        </div>
+        <span class="arrow">&rarr;</span>
+      </a>
+
+      <a class="card" href="week3-friday/">
+        <div>
+          <h2>Week 3 Friday</h2>
+          <p>Advanced CSS topics and practice activities.</p>
+        </div>
+        <span class="arrow">&rarr;</span>
+      </a>
+
+      <a class="card" href="week4/">
+        <div>
+          <h2>Week 4</h2>
+          <p>JavaScript DOM and event lessons and practice.</p>
+        </div>
+        <span class="arrow">&rarr;</span>
+      </a>
+    </section>
+  </main>
+</body>
+</html>
