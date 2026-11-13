@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Book Search · Web Programming</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@500;600&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f3f5f4;
+      --ink: #1f2a33;
+      --muted: #5d6b75;
+      --accent: #2f6b4f;
+      --on-accent: #ffffff;
+      --card: #ffffff;
+      --border: #dfe5e2;
+      --danger: #b42318;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #14191c;
+        --ink: #e8eeea;
+        --muted: #9aa8a1;
+        --accent: #6fc49a;
+        --on-accent: #14191c;
+        --card: #1c2327;
+        --border: #2b363b;
+        --danger: #f08a80;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at 40% 0%, rgba(47,107,79,.08), transparent 60%),
+        var(--bg);
+      color: var(--ink);
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 96px 24px 64px;
+    }
+    .back {
+      display: inline-block;
+      margin: 0 0 20px;
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+    .back:hover, .back:focus-visible { text-decoration: underline; outline: none; }
+    h1 {
+      margin: 0 0 40px;
+      font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+      font-weight: 500;
+      font-size: clamp(40px, 7vw, 72px);
+      line-height: 1.05;
+      letter-spacing: -.02em;
+    }
+    .panel {
+      padding: 32px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+    .muted { color: var(--muted); }
+    button {
+      padding: 11px 20px;
+      border: 1px solid var(--accent);
+      border-radius: 10px;
+      background: var(--accent);
+      color: var(--on-accent);
+      font: 600 16px "Inter", system-ui, sans-serif;
+      cursor: pointer;
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+    button:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,.1); }
+    button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+    input {
+      width: 100%;
+      padding: 11px 14px;
+      background: var(--bg);
+      color: var(--ink);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font: 400 16px "Inter", system-ui, sans-serif;
+    }
+    input::placeholder { color: var(--muted); }
+    input:focus { border-color: var(--accent); outline: none; }
+    input:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+      button:hover { transform: none; }
+    }
+
+    .intro { margin: -16px 0 32px; color: var(--muted); font-size: 18px; }
+    form { display: flex; gap: 12px; max-width: 560px; margin: 0 0 56px; }
+    form button { flex-shrink: 0; }
+    button:disabled { opacity: .55; cursor: not-allowed; transform: none; box-shadow: none; }
+    h2 {
+      margin: 0 0 12px;
+      font-family: "Source Serif 4", Georgia, serif;
+      font-weight: 600;
+      font-size: 32px;
+    }
+    #status { margin: 0 0 24px; min-height: 1.5em; color: var(--muted); }
+    #status.error { color: var(--danger); }
+    #status.empty { color: var(--ink); }
+    #results-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 24px; }
+    .book-card {
+      overflow: hidden;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+    }
+    .book-card:hover { transform: translateY(-3px); border-color: var(--accent); box-shadow: 0 10px 24px rgba(0,0,0,.08); }
+    .book-cover, .no-cover { display: block; width: 100%; aspect-ratio: 2 / 3; object-fit: cover; background: var(--bg); }
+    .no-cover { display: flex; align-items: center; justify-content: center; padding: 12px; text-align: center; color: var(--muted); font-size: 14px; }
+    .card-info { padding: 16px; }
+    .card-info h3 {
+      margin: 0;
+      font-family: "Source Serif 4", Georgia, serif;
+      font-weight: 600;
+      font-size: 17px;
+      line-height: 1.3;
+      overflow-wrap: anywhere;
+    }
+    .card-info p { margin: 8px 0 0; color: var(--muted); font-size: 14px; }
+    .skeleton { aspect-ratio: 2 / 3; background: var(--card); border: 1px solid var(--border); border-radius: 14px; animation: loading 1s infinite alternate; }
+    @keyframes loading { from { opacity: .45; } to { opacity: 1; } }
+    .spinner {
+      display: inline-block; width: 14px; height: 14px; margin-right: 8px;
+      border: 2px solid var(--border); border-top-color: var(--on-accent);
+      border-radius: 50%; animation: spin .7s linear infinite; vertical-align: middle;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) {
+      .skeleton { animation: none; opacity: .7; }
+      .spinner { animation-duration: 3s; }
+    }
+    @media (max-width: 480px) { form { gap: 8px; } }
+
+  </style>
+</head>
+<body>
+  <main>
+    <a class="back" href="index.html">&larr; Week 7</a>
+    <h1>Book Search</h1>
+    <p class="intro">Search Open Library by title or author.</p>
+
+    <form id="search-form">
+      <input
+        type="text"
+        id="search-input"
+        placeholder="Search by title or author"
+        aria-label="Search by title or author"
+        required
+      >
+      <button type="submit" id="search-btn">Search</button>
+    </form>
+
+    <section id="results-section">
+      <h2>Results</h2>
+      <p id="status">Enter a book title or author to get started.</p>
+      <div id="results-grid"></div>
+    </section>
+  </main>
+  <script>
+    const form = document.getElementById('search-form');
+    const input = document.getElementById('search-input');
+    const status = document.getElementById('status');
+    const grid = document.getElementById('results-grid');
+    const button = document.getElementById('search-btn');
+
+    function setStatus(message, type) {
+      status.textContent = message;
+      status.className = type;
+    }
+
+    function showLoading() {
+      grid.textContent = '';
+
+      for (let i = 0; i < 6; i++) {
+        let card = document.createElement('div');
+        card.className = 'skeleton';
+        grid.appendChild(card);
+      }
+    }
+
+    function showBooks(books) {
+      grid.textContent = '';
+
+      for (let book of books) {
+        let card = document.createElement('article');
+        card.className = 'book-card';
+
+        if (book.cover_i) {
+          let cover = document.createElement('img');
+          cover.className = 'book-cover';
+          cover.src =
+            'https://covers.openlibrary.org/b/id/' +
+            book.cover_i + '-M.jpg';
+          cover.alt = 'Cover of ' + (book.title || 'book');
+          cover.loading = 'lazy';
+          card.appendChild(cover);
+        } else {
+          let cover = document.createElement('div');
+          cover.className = 'no-cover';
+          cover.textContent = 'No cover available';
+          card.appendChild(cover);
+        }
+
+        let info = document.createElement('div');
+        info.className = 'card-info';
+
+        let title = document.createElement('h3');
+        title.textContent = book.title || 'Unknown title';
+
+        let author = document.createElement('p');
+        author.textContent = book.author_name
+          ? book.author_name[0]
+          : 'Unknown author';
+
+        let year = document.createElement('p');
+        year.textContent = book.first_publish_year
+          ? 'Published: ' + book.first_publish_year
+          : 'Year unavailable';
+
+        info.appendChild(title);
+        info.appendChild(author);
+        info.appendChild(year);
+
+        card.appendChild(info);
+        grid.appendChild(card);
+      }
+    }
+
+    async function searchBooks(query) {
+      button.disabled = true;
+      button.innerHTML = '<span class="spinner"></span>Searching';
+      setStatus('Searching...', 'info');
+      showLoading();
+
+      try {
+        const url =
+          'https://openlibrary.org/search.json?q=' +
+          encodeURIComponent(query) + '&limit=12';
+
+        const res = await fetch(url);
+
+        if (!res.ok) {
+          throw new Error('Request failed');
+        }
+
+        const data = await res.json();
+
+        if (data.docs.length === 0) {
+          grid.textContent = '';
+          setStatus('No books found. Try another search.', 'empty');
+          return;
+        }
+
+        showBooks(data.docs);
+
+        setStatus(
+          'Showing ' + data.docs.length +
+          ' books for "' + query + '".',
+          'info'
+        );
+      } catch (error) {
+        grid.textContent = '';
+        setStatus(
+          'Could not load books. Check your connection and try again.',
+          'error'
+        );
+      } finally {
+        button.disabled = false;
+        button.textContent = 'Search';
+      }
+    }
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const query = input.value.trim();
+
+      if (query !== '') {
+        searchBooks(query);
+      }
+    });
+  </script>
+</body>
+</html>
