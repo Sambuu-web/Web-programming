@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Form Validation · Web Programming</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@500;600&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f3f5f4;
+      --ink: #1f2a33;
+      --muted: #5d6b75;
+      --accent: #2f6b4f;
+      --on-accent: #ffffff;
+      --card: #ffffff;
+      --border: #dfe5e2;
+      --danger: #b42318;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #14191c;
+        --ink: #e8eeea;
+        --muted: #9aa8a1;
+        --accent: #6fc49a;
+        --on-accent: #14191c;
+        --card: #1c2327;
+        --border: #2b363b;
+        --danger: #f08a80;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at 40% 0%, rgba(47,107,79,.08), transparent 60%),
+        var(--bg);
+      color: var(--ink);
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+    main {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 96px 24px 64px;
+    }
+    .back {
+      display: inline-block;
+      margin: 0 0 20px;
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+    .back:hover, .back:focus-visible { text-decoration: underline; outline: none; }
+    h1 {
+      margin: 0 0 40px;
+      font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+      font-weight: 500;
+      font-size: clamp(40px, 7vw, 72px);
+      line-height: 1.05;
+      letter-spacing: -.02em;
+    }
+    .panel {
+      padding: 32px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+    .muted { color: var(--muted); }
+    button {
+      padding: 11px 20px;
+      border: 1px solid var(--accent);
+      border-radius: 10px;
+      background: var(--accent);
+      color: var(--on-accent);
+      font: 600 16px "Inter", system-ui, sans-serif;
+      cursor: pointer;
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+    button:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,.1); }
+    button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+    input {
+      width: 100%;
+      padding: 11px 14px;
+      background: var(--bg);
+      color: var(--ink);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font: 400 16px "Inter", system-ui, sans-serif;
+    }
+    input::placeholder { color: var(--muted); }
+    input:focus { border-color: var(--accent); outline: none; }
+    input:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+      button:hover { transform: none; }
+    }
+
+    :root { --ok: #1f7a4d; --ok-bg: #eaf6ef; --bad: #b42318; --bad-bg: #fdeceb; }
+    @media (prefers-color-scheme: dark) {
+      :root { --ok: #6fc49a; --ok-bg: #17291f; --bad: #f08a80; --bad-bg: #2e1b1a; }
+    }
+    .intro { margin: -16px 0 32px; color: var(--muted); font-size: 18px; }
+    label { display: block; margin: 0 0 6px; font-weight: 600; }
+    .field { margin: 0 0 22px; }
+    input[type="checkbox"] { width: 20px; height: 20px; padding: 0; accent-color: var(--accent); flex-shrink: 0; }
+    .check { display: flex; align-items: center; gap: 10px; margin: 0 0 24px; }
+    .check label { margin: 0; font-weight: 400; }
+    button:disabled { opacity: .45; cursor: not-allowed; transform: none; box-shadow: none; }
+    .note { margin: 24px 0 0; color: var(--muted); line-height: 1.5; }
+
+  </style>
+</head>
+<body>
+  <main>
+    <a class="back" href="index.html">&larr; Week 8</a>
+    <h1>Form Validation</h1>
+    <form class="panel" method="post" action="#">
+      <div class="field">
+        <label for="sid">Student ID</label>
+        <input
+          type="text"
+          id="sid"
+          name="student_id"
+          pattern="[0-9]{9}"
+          required
+          title="Enter your 9-digit student ID"
+          placeholder="202112345"
+        >
+      </div>
+
+      <div class="field">
+        <label for="r-email">Email</label>
+        <input
+          type="email"
+          id="r-email"
+          name="email"
+          required
+          placeholder="name@gachon.ac.kr"
+        >
+      </div>
+
+      <div class="field">
+        <label for="r-pw">Password</label>
+        <input
+          type="password"
+          id="r-pw"
+          name="password"
+          minlength="8"
+          required
+          placeholder="At least 8 characters"
+        >
+      </div>
+
+      <div class="field">
+        <label for="r-age">Age</label>
+        <input
+          type="number"
+          id="r-age"
+          name="age"
+          min="16"
+          max="100"
+          required
+          placeholder="Enter your age"
+        >
+      </div>
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <p class="note">Try invalid values to see the browser's validation messages.</p>
+  </main>
+
+</body>
+</html>
