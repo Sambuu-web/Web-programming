@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Web Programming</title>
+  <script>
+    try {
+      var savedTheme = localStorage.getItem('web-programming-theme');
+      if (savedTheme === 'dark' || savedTheme === 'light') {
+        document.documentElement.dataset.theme = savedTheme;
+      }
+    } catch (err) {}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@500;600&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f3f5f4;
+      --ink: #1f2a33;
+      --muted: #5d6b75;
+      --accent: #2f6b4f;
+      --on-accent: #ffffff;
+      --card: #ffffff;
+      --border: #dfe5e2;
+      --ok: #1f7a4d;
+      --ok-bg: #eaf6ef;
+      --bad: #b42318;
+      --bad-bg: #fdeceb;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #14191c;
+        --ink: #e8eeea;
+        --muted: #9aa8a1;
+        --accent: #6fc49a;
+        --on-accent: #14191c;
+        --card: #1c2327;
+        --border: #2b363b;
+        --ok: #6fc49a;
+        --ok-bg: #17291f;
+        --bad: #f08a80;
+        --bad-bg: #2e1b1a;
+      }
+    }
+    :root[data-theme="light"] { color-scheme: light; }
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --bg: #14191c;
+      --ink: #e8eeea;
+      --muted: #9aa8a1;
+      --accent: #6fc49a;
+      --on-accent: #14191c;
+      --card: #1c2327;
+      --border: #2b363b;
+      --ok: #6fc49a;
+      --ok-bg: #17291f;
+      --bad: #f08a80;
+      --bad-bg: #2e1b1a;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at 40% 0%, rgba(47,107,79,.08), transparent 60%),
+        var(--bg);
+      color: var(--ink);
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 56px 24px 64px;
+    }
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin: 0 0 40px;
+    }
+    .eyebrow {
+      margin: 0;
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    .theme-toggle {
+      padding: 9px 16px;
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font: 600 14px "Inter", system-ui, sans-serif;
+      cursor: pointer;
+      transition: border-color .15s ease;
+    }
+    .theme-toggle:hover { border-color: var(--accent); }
+    h1 {
+      margin: 0 0 16px;
+      font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+      font-weight: 500;
+      font-size: clamp(44px, 8vw, 96px);
+      line-height: 1.05;
+      letter-spacing: -.02em;
+    }
+    .lead {
+      margin: 0 0 56px;
+      color: var(--muted);
+      font-size: 20px;
+    }
+    h2 {
+      margin: 0 0 24px;
+      font-family: "Source Serif 4", Georgia, serif;
+      font-weight: 600;
+      font-size: 32px;
+      line-height: 1.2;
+    }
+    section { margin: 0 0 72px; }
+    .info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      margin: 0 0 72px;
+    }
+    .info div {
+      padding: 24px 28px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+    .info strong { color: var(--accent); }
+    .info p { margin: 8px 0 0; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 24px;
+    }
+    .card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 150px;
+      padding: 28px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      color: inherit;
+      text-decoration: none;
+      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+    }
+    .card:hover, .card:focus-visible {
+      transform: translateY(-3px);
+      border-color: var(--accent);
+      box-shadow: 0 10px 24px rgba(0,0,0,.08);
+      outline: none;
+    }
+    .card h3 {
+      margin: 0 0 10px;
+      font-family: "Source Serif 4", Georgia, serif;
+      font-weight: 600;
+      font-size: 26px;
+      line-height: 1.2;
+    }
+    .card p { margin: 0; color: var(--muted); font-size: 16px; line-height: 1.5; }
+    .arrow {
+      align-self: flex-end;
+      margin-top: 12px;
+      color: var(--accent);
+      font-size: 24px;
+      line-height: 1;
+    }
+    .panel {
+      padding: 32px;
+      margin: 0 0 24px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+    .panel h3 {
+      margin: 0 0 12px;
+      font-family: "Source Serif 4", Georgia, serif;
+      font-weight: 600;
+      font-size: 26px;
+    }
+    .panel p { margin: 0 0 16px; color: var(--muted); }
+    .links { display: flex; flex-wrap: wrap; gap: 12px 28px; }
+    .links a, .back a {
+      color: var(--accent);
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .links a:hover, .links a:focus-visible { text-decoration: underline; }
+    .viewer {
+      margin-top: 8px;
+      overflow: hidden;
+      background: #0f172a;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+    .viewer iframe { display: block; width: 100%; height: 560px; border: 0; }
+    .viewer video { display: block; width: 100%; height: auto; background: #0f172a; }
+    .contact-form { max-width: 640px; }
+    .contact-form label { display: block; margin: 20px 0 6px; font-weight: 600; }
+    .contact-form label:first-child { margin-top: 0; }
+    .contact-form input, .contact-form textarea {
+      width: 100%;
+      padding: 11px 14px;
+      background: var(--bg);
+      color: var(--ink);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font: 400 16px "Inter", system-ui, sans-serif;
+    }
+    .contact-form textarea { min-height: 130px; resize: vertical; }
+    .contact-form input::placeholder, .contact-form textarea::placeholder { color: var(--muted); }
+    .contact-form input:focus, .contact-form textarea:focus { border-color: var(--accent); outline: none; }
+    .contact-form input:focus-visible, .contact-form textarea:focus-visible,
+    .theme-toggle:focus-visible, .contact-form button:focus-visible,
+    .links a:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+    .contact-form input:valid:not(:placeholder-shown),
+    .contact-form textarea:valid:not(:placeholder-shown) { border-color: var(--ok); background: var(--ok-bg); }
+    .contact-form input:invalid:not(:placeholder-shown),
+    .contact-form textarea:invalid:not(:placeholder-shown) { border-color: var(--bad); background: var(--bad-bg); }
+    .contact-form button {
+      margin-top: 24px;
+      padding: 12px 24px;
+      background: var(--accent);
+      color: var(--on-accent);
+      border: 1px solid var(--accent);
+      border-radius: 10px;
+      font: 600 16px "Inter", system-ui, sans-serif;
+      cursor: pointer;
+    }
+    #contact-status { margin: 16px 0 0; color: var(--accent); font-weight: 500; }
+    #contact-status:empty { margin: 0; }
+    @media (max-width: 650px) {
+      main { padding-top: 32px; }
+      .panel { padding: 22px; }
+      .viewer iframe { height: 400px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .card, .theme-toggle { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="topbar">
+      <p class="eyebrow">Class Exercises · 2026</p>
+      <button
+        class="theme-toggle"
+        id="theme-toggle"
+        type="button"
+        aria-label="Switch to dark mode"
+        aria-pressed="false">
+        🌙 Dark Mode
+      </button>
+    </div>
+
+    <h1>Web Programming</h1>
+    <p class="lead">A collection of my Web Programming class work</p>
+
+    <div class="info">
+      <div>
+        <strong>Student</strong>
+        <p>Batnasan Erdenesambuu</p>
+        <p>Student ID: 202539430</p>
+      </div>
+
+      <div>
+        <strong>Major</strong>
+        <p>Computer Engineering</p>
+      </div>
+    </div>
+
+    <section>
+      <h2>Course Materials</h2>
+
+      <div class="grid">
+        <a class="card" href="week2/">
+          <div><h3>Week 2</h3><p>Semantic HTML and page layout elements.</p></div>
+          <span class="arrow">&rarr;</span>
+        </a>
+        <a class="card" href="week3/">
+          <div><h3>Week 3</h3><p>CSS fundamentals, selectors, and styling exercises.</p></div>
+          <span class="arrow">&rarr;</span>
+        </a>
+        <a class="card" href="week4/">
+          <div><h3>Week 4</h3><p>DOM, events, and interactive exercises.</p></div>
+          <span class="arrow">&rarr;</span>
+        </a>
+        <a class="card" href="week5/">
+          <div><h3>Week 5</h3><p>JavaScript basics and a counter.</p></div>
+          <span class="arrow">&rarr;</span>
+        </a>
+        <a class="card" href="week6/">
+          <div><h3>Week 6</h3><p>Fetch API and async/await.</p></div>
+          <span class="arrow">&rarr;</span>
+        </a>
+        <a class="card" href="week7/">
+          <div><h3>Week 7</h3><p>Open Library and Book Search.</p></div>
+          <span class="arrow">&rarr;</span>
+        </a>
+        <a class="card" href="week8/">
+          <div><h3>Week 8</h3><p>HTML forms and validation.</p></div>
+          <span class="arrow">&rarr;</span>
+        </a>
+        <a class="card" href="week9/">
+          <div><h3>Week 9</h3><p>Web accessibility.</p></div>
+          <span class="arrow">&rarr;</span>
+        </a>
+        <a class="card" href="week10/">
+          <div><h3>Week 10</h3><p>Website performance.</p></div>
+          <span class="arrow">&rarr;</span>
+        </a>
+        <a class="card" href="accessibility-audit.html">
+          <div><h3>Accessibility Audit</h3><p>Lighthouse accessibility score from 97 to 100.</p></div>
+          <span class="arrow">&rarr;</span>
+        </a>
+        <a class="card" href="week10/performance-report.html">
+          <div><h3>Website Performance Report</h3><p>Lighthouse performance results for my website.</p></div>
+          <span class="arrow">&rarr;</span>
+        </a>
+      </div>
+    </section>
+
+    <section>
+      <h2>Team Project</h2>
+
+      <div class="panel">
+        <h3>What's Cooking?</h3>
+
+        <p>
+          Our team's project, a website focused on
+          everyday recipes and making cooking more accessible to everyone.
+        </p>
+
+        <div class="links">
+          <a href="https://erdenetsogt-delgerbat.github.io/team-Project/"
+             target="_blank"
+             rel="noopener noreferrer">Visit Team Project →</a>
+
+          <a href="https://github.com/ERDENETSOGT-DELGERBAT/team-Project"
+             target="_blank"
+             rel="noopener noreferrer">Source Code Repository →</a>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>Team Project Research Proposal</h3>
+
+        <p>
+          View our team's research proposal presentation below.
+          You can navigate through the slides directly on this page.
+        </p>
+
+        <div class="viewer">
+          <iframe
+            src="https://view.officeapps.live.com/op/embed.aspx?src=https%3A%2F%2Ferdenetsogt-delgerbat.github.io%2FWeb-Programming%2Fteam-project-research-proposal.pptx"
+            title="Team Project Research Proposal Presentation"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>Team Project Presentation Video</h3>
+
+        <p>
+          Watch our team's project presentation video below.
+        </p>
+
+        <div class="viewer">
+          <video
+            controls
+            playsinline
+            preload="metadata"
+          >
+            <source src="team-project-presentation.mp4" type="video/mp4">
+            Your browser does not support HTML video.
+          </video>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Contact Me</h2>
+
+      <form class="panel contact-form" id="contact-form" action="#" method="post">
+
+        <label for="contact-name">Name</label>
+        <input
+          type="text"
+          id="contact-name"
+          name="name"
+          placeholder="Your name"
+          minlength="2"
+          required
+        >
+
+        <label for="contact-email">Email</label>
+        <input
+          type="email"
+          id="contact-email"
+          name="email"
+          placeholder="you@example.com"
+          required
+        >
+
+        <label for="contact-subject">Subject</label>
+        <input
+          type="text"
+          id="contact-subject"
+          name="subject"
+          placeholder="Message subject"
+          minlength="3"
+          required
+        >
+
+        <label for="contact-message">Message</label>
+        <textarea
+          id="contact-message"
+          name="message"
+          placeholder="Write your message"
+          minlength="10"
+          required
+        ></textarea>
+
+        <button type="submit">Send Message</button>
+
+        <p id="contact-status" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    // Dark mode toggle
+    const root = document.documentElement;
+    const themeToggle = document.getElementById('theme-toggle');
+
+    function isDark() {
+      if (root.dataset.theme) {
+        return root.dataset.theme === 'dark';
+      }
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+
+    function updateThemeButton() {
+      const dark = isDark();
+      themeToggle.textContent = dark ? '☀️ Light Mode' : '🌙 Dark Mode';
+      themeToggle.setAttribute('aria-pressed', String(dark));
+      themeToggle.setAttribute(
+        'aria-label',
+        dark ? 'Switch to light mode' : 'Switch to dark mode'
+      );
+    }
+
+    updateThemeButton();
+
+    themeToggle.addEventListener('click', function() {
+      const next = isDark() ? 'light' : 'dark';
+      root.dataset.theme = next;
+
+      try {
+        localStorage.setItem('web-programming-theme', next);
+      } catch (err) {}
+
+      updateThemeButton();
+    });
+
+    // Contact form
+    document.getElementById('contact-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      document.getElementById('contact-status').textContent =
+        'Your form is valid, but message will not be sent.';
+    });
+  </script>
+</body>
+</html>
