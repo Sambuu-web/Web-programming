@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Image Alt Text · Web Programming</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@500;600&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f3f5f4;
+      --ink: #1f2a33;
+      --muted: #5d6b75;
+      --accent: #2f6b4f;
+      --on-accent: #ffffff;
+      --card: #ffffff;
+      --border: #dfe5e2;
+      --danger: #b42318;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #14191c;
+        --ink: #e8eeea;
+        --muted: #9aa8a1;
+        --accent: #6fc49a;
+        --on-accent: #14191c;
+        --card: #1c2327;
+        --border: #2b363b;
+        --danger: #f08a80;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at 40% 0%, rgba(47,107,79,.08), transparent 60%),
+        var(--bg);
+      color: var(--ink);
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+    main {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 96px 24px 64px;
+    }
+    .back {
+      display: inline-block;
+      margin: 0 0 20px;
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+    .back:hover, .back:focus-visible { text-decoration: underline; outline: none; }
+    h1 {
+      margin: 0 0 40px;
+      font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+      font-weight: 500;
+      font-size: clamp(40px, 7vw, 72px);
+      line-height: 1.05;
+      letter-spacing: -.02em;
+    }
+    .panel {
+      padding: 32px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+    .muted { color: var(--muted); }
+    button {
+      padding: 11px 20px;
+      border: 1px solid var(--accent);
+      border-radius: 10px;
+      background: var(--accent);
+      color: var(--on-accent);
+      font: 600 16px "Inter", system-ui, sans-serif;
+      cursor: pointer;
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+    button:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,.1); }
+    button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+    input {
+      width: 100%;
+      padding: 11px 14px;
+      background: var(--bg);
+      color: var(--ink);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font: 400 16px "Inter", system-ui, sans-serif;
+    }
+    input::placeholder { color: var(--muted); }
+    input:focus { border-color: var(--accent); outline: none; }
+    input:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+      button:hover { transform: none; }
+    }
+
+    :root { --ok: #1f7a4d; --ok-bg: #eaf6ef; --bad: #b42318; --bad-bg: #fdeceb; }
+    @media (prefers-color-scheme: dark) {
+      :root { --ok: #6fc49a; --ok-bg: #17291f; --bad: #f08a80; --bad-bg: #2e1b1a; }
+    }
+    .intro { margin: -16px 0 32px; color: var(--muted); font-size: 18px; line-height: 1.5; }
+    h2 { margin: 0 0 16px; font-family: "Source Serif 4", Georgia, serif; font-weight: 600; font-size: 26px; }
+    main p { margin: 0 0 16px; line-height: 1.6; }
+    label { display: block; margin: 0 0 6px; font-weight: 600; }
+    .ghost { background: transparent; color: var(--accent); }
+    .message {
+      margin: 16px 0 0; padding: 14px 16px; background: var(--bg);
+      border: 1px solid var(--border); border-radius: 10px; line-height: 1.5;
+    }
+    .message:empty { margin: 0; padding: 0; border: 0; background: none; }
+
+    .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 24px; margin: 0 0 56px; }
+    article { padding: 20px; background: var(--card); border: 1px solid var(--border); border-radius: 14px; }
+    article img { display: block; width: 100%; height: 150px; margin: 0 0 16px; object-fit: contain; background: var(--bg); border-radius: 10px; }
+    article a { display: block; border-radius: 10px; }
+    article h2 { margin: 0 0 8px; font-size: 20px; }
+    article p { margin: 0; color: var(--muted); font-size: 15px; }
+    #check-button { margin-top: 4px; }
+    #feedback:not(:empty) { margin-top: 24px; max-width: 720px; }
+
+  </style>
+</head>
+<body>
+  <main>
+    <a class="back" href="index.html">&larr; Week 9</a>
+    <h1>Image Alt Text</h1>
+    <p class="intro">Learn how to describe images for people using screen readers.</p>
+
+    <section class="gallery">
+
+    <article>
+      <img
+        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 240'%3E%3Crect width='400' height='240' fill='%23dbeafe'/%3E%3Crect x='65' y='55' width='270' height='145' fill='%2393b4d8'/%3E%3Crect x='85' y='75' width='45' height='42' fill='%23f8fafc'/%3E%3Crect x='150' y='75' width='45' height='42' fill='%23f8fafc'/%3E%3Crect x='215' y='75' width='45' height='42' fill='%23f8fafc'/%3E%3Crect x='280' y='75' width='35' height='42' fill='%23f8fafc'/%3E%3Crect x='175' y='145' width='50' height='55' fill='%23475f7a'/%3E%3C/svg%3E"
+        alt="Illustration of a university building with rows of windows and a central entrance"
+      >
+      <h2>1. Informative image</h2>
+      <p>The description explains what the image shows.</p>
+    </article>
+
+    <article>
+      <img
+        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 240'%3E%3Crect width='400' height='240' fill='%23dcfce7'/%3E%3Cpath d='M0 120 Q50 50 100 120 T200 120 T300 120 T400 120' fill='none' stroke='%23178056' stroke-width='12'/%3E%3C/svg%3E"
+        alt=""
+      >
+      <h2>2. Decorative image</h2>
+      <p>The empty alt attribute lets screen readers skip this decorative wave.</p>
+    </article>
+
+    <article>
+      <a href="../index.html" aria-label="Go to the Web Programming homepage">
+        <img
+          src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 240'%3E%3Crect width='400' height='240' rx='16' fill='%23fef3c7'/%3E%3Cpath d='M200 40 L245 95 L220 95 L220 150 L180 150 L180 95 L155 95 Z' fill='%23854d0e'/%3E%3Crect x='125' y='165' width='150' height='12' rx='6' fill='%23854d0e'/%3E%3C/svg%3E"
+          alt="Web Programming homepage"
+        >
+      </a>
+      <h2>3. Linked image</h2>
+      <p>The accessible name explains where selecting the image will take you.</p>
+    </article>
+
+    <article>
+      <img
+        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 240'%3E%3Crect width='400' height='240' fill='%23f3e8ff'/%3E%3Cpath d='M60 190 H355 M60 190 V35' stroke='%236b647e' stroke-width='3' fill='none'/%3E%3Crect x='95' y='110' width='55' height='80' fill='%239f8ad6'/%3E%3Crect x='180' y='75' width='55' height='115' fill='%237e65c4'/%3E%3Crect x='265' y='50' width='55' height='140' fill='%235b3aa8'/%3E%3C/svg%3E"
+        alt="Bar chart showing student enrollment increasing from 1,200 in 2024 to 1,400 in 2025 and 1,476 in 2026"
+      >
+      <h2>4. Data chart</h2>
+      <p>The description communicates the important numbers and trend.</p>
+    </article>
+
+    </section>
+
+    <h2>Check the image descriptions</h2>
+    <button type="button" id="check-button">Check alt text</button>
+    <div id="feedback" class="message" role="status" aria-live="polite"></div>
+  </main>
+  <script>
+    document.getElementById('check-button').addEventListener('click', function() {
+      const images = document.querySelectorAll('main img');
+      const feedback = document.getElementById('feedback');
+      const results = [];
+
+      images.forEach(function(image, index) {
+        const alt = image.getAttribute('alt');
+
+        if (alt === null) {
+          results.push('Image ' + (index + 1) + ': missing alt attribute.');
+        } else if (index === 1 && alt !== '') {
+          results.push('Image 2: the decorative image should use alt="".');
+        } else if (alt === '') {
+          results.push('Image ' + (index + 1) + ': empty alt text.');
+        } else {
+          results.push('Image ' + (index + 1) + ': descriptive alt text is present.');
+        }
+      });
+
+      feedback.textContent = results.join(' ');
+    });
+  </script>
+</body>
+</html>
