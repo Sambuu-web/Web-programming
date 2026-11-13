@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Accessibility Audit · Web Programming</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@500;600&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f3f5f4;
+      --ink: #1f2a33;
+      --muted: #5d6b75;
+      --accent: #2f6b4f;
+      --on-accent: #ffffff;
+      --card: #ffffff;
+      --border: #dfe5e2;
+      --danger: #b42318;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #14191c;
+        --ink: #e8eeea;
+        --muted: #9aa8a1;
+        --accent: #6fc49a;
+        --on-accent: #14191c;
+        --card: #1c2327;
+        --border: #2b363b;
+        --danger: #f08a80;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at 40% 0%, rgba(47,107,79,.08), transparent 60%),
+        var(--bg);
+      color: var(--ink);
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+    main {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 96px 24px 64px;
+    }
+    .back {
+      display: inline-block;
+      margin: 0 0 20px;
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+    .back:hover, .back:focus-visible { text-decoration: underline; outline: none; }
+    h1 {
+      margin: 0 0 40px;
+      font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+      font-weight: 500;
+      font-size: clamp(40px, 7vw, 72px);
+      line-height: 1.05;
+      letter-spacing: -.02em;
+    }
+    .panel {
+      padding: 32px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+    .muted { color: var(--muted); }
+    button {
+      padding: 11px 20px;
+      border: 1px solid var(--accent);
+      border-radius: 10px;
+      background: var(--accent);
+      color: var(--on-accent);
+      font: 600 16px "Inter", system-ui, sans-serif;
+      cursor: pointer;
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+    button:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,.1); }
+    button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+    input {
+      width: 100%;
+      padding: 11px 14px;
+      background: var(--bg);
+      color: var(--ink);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font: 400 16px "Inter", system-ui, sans-serif;
+    }
+    input::placeholder { color: var(--muted); }
+    input:focus { border-color: var(--accent); outline: none; }
+    input:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+      button:hover { transform: none; }
+    }
+
+    .intro { margin: -16px 0 8px; color: var(--muted); font-size: 18px; line-height: 1.5; }
+    .intro + .intro { margin-top: 0; margin-bottom: 40px; }
+    h2 { margin: 0 0 16px; font-family: "Source Serif 4", Georgia, serif; font-weight: 600; font-size: 26px; }
+    main p { margin: 0 0 16px; line-height: 1.6; }
+    .panel { margin-bottom: 24px; }
+    .panel > :last-child { margin-bottom: 0; }
+    .score { font-family: "Source Serif 4", Georgia, serif; font-weight: 600; font-size: 30px; color: var(--accent); }
+    .label { margin: 24px 0 8px !important; font-weight: 600; }
+    pre {
+      margin: 0 0 16px; padding: 16px 18px; overflow-x: auto;
+      background: var(--bg); border: 1px solid var(--border); border-radius: 10px;
+      font-size: 14px; line-height: 1.6;
+    }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    img { display: block; width: 100%; height: auto; margin-top: 8px; border: 1px solid var(--border); border-radius: 10px; }
+
+  </style>
+</head>
+<body>
+  <main>
+    <a class="back" href="index.html">&larr; Home</a>
+    <h1>Accessibility Audit</h1>
+    <p class="intro">Website: My Web Programming Portfolio</p>
+    <p class="intro">This report shows the accessibility issue I found and how I fixed it using Lighthouse.</p>
+
+    <section class="panel">
+      <h2>1. Before Fix</h2>
+      <p class="score">Accessibility Score: 97/100</p>
+      <p>Problem: The document did not have a main landmark. This made it harder for assistive technology users to identify the main content of the page.</p>
+      <img src="lighthouse-before.png" alt="Lighthouse accessibility report before the fix, showing a score of 97 and a missing main landmark warning">
+    </section>
+
+    <section class="panel">
+      <h2>2. What I Changed</h2>
+      <p>I added a main element around the primary content of my website. This gives the page a clear main landmark.</p>
+
+      <p class="label">Before:</p>
+      <pre><code>&lt;div class="info"&gt;
+  ...
+&lt;/div&gt;
+
+&lt;section class="materials"&gt;
+  ...
+&lt;/section&gt;</code></pre>
+
+      <p class="label">After:</p>
+      <pre><code>&lt;main&gt;
+  &lt;div class="info"&gt;
+    ...
+  &lt;/div&gt;
+
+  &lt;section class="materials"&gt;
+    ...
+  &lt;/section&gt;
+&lt;/main&gt;</code></pre>
+
+      <p>I also reviewed the page's accessibility and checked the updated result using Lighthouse.</p>
+    </section>
+
+    <section class="panel">
+      <h2>3. After Fix</h2>
+      <p class="score">Accessibility Score: 100/100</p>
+      <p>The updated Lighthouse audit showed a score of 100. The missing main landmark warning was no longer reported.</p>
+      <img src="lighthouse-after.png" alt="Lighthouse accessibility report after the fix, showing a score of 100">
+    </section>
+
+    <section class="panel">
+      <h2>4. Result</h2>
+      <p>The accessibility score improved from 97 to 100. Adding the main landmark helped make the page structure clearer for assistive technologies.</p>
+    </section>
+  </main>
+
+</body>
+</html>
