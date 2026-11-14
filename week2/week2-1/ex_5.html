@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Batnasan Erdenesambuu - Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@500;600&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f3f5f4;
+      --ink: #1f2a33;
+      --muted: #5d6b75;
+      --accent: #2f6b4f;
+      --card: #ffffff;
+      --border: #dfe5e2;
+      --mark: #fdf0b3;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #14191c;
+        --ink: #e8eeea;
+        --muted: #9aa8a1;
+        --accent: #6fc49a;
+        --card: #1c2327;
+        --border: #2b363b;
+        --mark: #4d4212;
+      }
+    }
+    * { box-sizing: border-box; }
+    html {
+      min-height: 100%;
+      background:
+        radial-gradient(ellipse at 40% 0%, rgba(47,107,79,.08), transparent 60%),
+        var(--bg);
+    }
+    @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+    body {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 72px 24px 64px;
+      color: var(--ink);
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+    .back-wrap { margin: 0 0 20px; }
+    .back {
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+    .back:hover, .back:focus-visible { text-decoration: underline; }
+
+    h1, h2, h3 { font-family: "Source Serif 4", Georgia, "Times New Roman", serif; line-height: 1.15; }
+    body > h1, body > header > h1 {
+      margin: 0 0 24px;
+      font-weight: 500;
+      font-size: clamp(38px, 7vw, 68px);
+      letter-spacing: -.02em;
+    }
+    h2 { margin: 0 0 12px; font-weight: 600; font-size: 28px; }
+    h3 { margin: 0 0 8px; font-weight: 600; font-size: 22px; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 24px; line-height: 1.8; }
+    a { color: var(--accent); font-weight: 600; }
+    a:focus-visible, summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+    img { display: block; max-width: 100%; height: auto; border-radius: 10px; }
+    mark { background: var(--mark); color: inherit; padding: 0 .2em; border-radius: 3px; }
+    abbr[title] { text-decoration-color: var(--accent); }
+    time, address { font-style: normal; }
+    code {
+      padding: .1em .35em;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .92em;
+    }
+    pre { margin: 0 0 12px; padding: 16px 18px; overflow-x: auto; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; line-height: 1.6; }
+    pre code { padding: 0; border: 0; background: none; }
+    figure { margin: 0 0 24px; }
+    figcaption { margin-top: 10px; color: var(--muted); font-size: 14px; }
+
+    /* page header, navigation, footer */
+    body > header { margin: 0 0 32px; }
+    nav { display: flex; flex-wrap: wrap; gap: 10px; }
+    nav a {
+      padding: 8px 16px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--card);
+      text-decoration: none;
+    }
+    nav a:hover, nav a:focus-visible { border-color: var(--accent); }
+    body > footer {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+    }
+    body > footer p { margin: 0; }
+
+    /* panels */
+    main > article, main > section, main > aside,
+    body > article, body > section, body > figure, body > blockquote, body > details {
+      margin: 0 0 24px;
+      padding: 32px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+    main > article > :last-child, main > section > :last-child,
+    body > article > :last-child, body > section > :last-child,
+    body > figure > :last-child { margin-bottom: 0; }
+    body > figure { margin-bottom: 24px; }
+    body > figure img { margin-bottom: 0; }
+    main > aside { background: var(--card); border-left: 5px solid var(--accent); }
+
+    /* inside articles */
+    article > header { margin: 0 0 24px; }
+    article > header h1 { margin: 0 0 8px; font-weight: 600; font-size: clamp(30px, 5vw, 42px); }
+    article > header h2 { margin: 0 0 8px; font-size: 32px; }
+    article > header h3 { margin: 0 0 4px; }
+    article > header p { margin: 0; color: var(--muted); }
+    article > footer, article > section + footer {
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+    }
+    article > footer p { margin: 0; }
+    article > section { margin: 0 0 24px; }
+    article aside {
+      margin: 0 0 24px;
+      padding: 20px 24px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+    article aside ul { margin-bottom: 0; }
+    section article {
+      margin: 16px 0 0;
+      padding: 20px 24px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+    section article > header { margin-bottom: 12px; }
+    section article > :last-child { margin-bottom: 0; }
+
+    /* quotes */
+    blockquote { margin: 0 0 24px; }
+    body > blockquote, article > blockquote { border-left: 5px solid var(--accent); }
+    article > blockquote { padding: 4px 0 4px 20px; }
+    blockquote p { margin: 0 0 8px; font-family: "Source Serif 4", Georgia, serif; font-size: 22px; line-height: 1.4; }
+    blockquote footer { color: var(--muted); font-size: 15px; }
+    cite { font-style: normal; font-weight: 600; }
+    q { font-style: italic; }
+    h1 + p, body > p { max-width: 70ch; }
+
+    /* disclosure */
+    details { margin: 0 0 12px; padding: 14px 18px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; }
+    body > details { background: var(--card); border-radius: 14px; }
+    details p { margin: 10px 0 0; }
+    summary { cursor: pointer; font-weight: 600; }
+    summary::marker { color: var(--accent); }
+    details:last-child { margin-bottom: 0; }
+
+    @media (max-width: 650px) {
+      body { padding-top: 40px; }
+      main > article, main > section, main > aside,
+      body > article, body > section, body > figure, body > blockquote, body > details { padding: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <p class="back-wrap"><a class="back" href="index.html">&larr; Week 2_1</a></p>
+  <header>
+    <h1>Batnasan Erdenesambuu</h1>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="about">
+      <h2>About Me</h2>
+
+      <figure>
+        <img src="https://picsum.photos/200/200?random=20" alt="Batnasan Erdenesambuu, Gachon University student" width="200" height="200">
+        <figcaption>Gachon University student</figcaption>
+      </figure>
+
+      <p>I am a student at <abbr title="Gachon University">GU</abbr>. I am interested in <mark>web development</mark>.</p>
+    </section>
+
+    <section id="projects">
+      <h2>My Projects</h2>
+
+      <article>
+        <header>
+          <h3>HTML Portfolio</h3>
+          <p>Completed: <time datetime="2026-09">September 2026</time></p>
+        </header>
+
+        <p>I created a portfolio using <code>HTML5</code> elements.</p>
+      </article>
+    </section>
+
+    <aside id="skills">
+      <h2>Skills</h2>
+      <ul>
+        <li>Researching</li>
+        <li>Communication</li>
+        <li>Emotional intelligence</li>
+      </ul>
+    </aside>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <address>
+        <a href="mailto:student@gachon.ac.kr">student@gachon.ac.kr</a><br>
+        Gachon University, Korea
+      </address>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Batnasan Erdenesambuu</p>
+  </footer>
+</body>
+</html>
