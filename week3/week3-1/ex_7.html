@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  
+  <title>Exercise 7 - Week 3_1</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: sans-serif;
+      background-color: #f0fdf4;
+      padding: 40px 16px;
+    }
+
+    .card {
+      background-color: white;
+      border: 1px solid #bbf7d0;
+      border-radius: 16px;
+      padding: 36px;
+      max-width: 360px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-color: #15803d;
+      color: white;
+      font-size: 2rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+    }
+
+    .name {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #15803d;
+      margin-bottom: 6px;
+    }
+
+    .role {
+      color: #64748b;
+      margin-bottom: 20px;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #e2e8f0;
+      margin-bottom: 20px;
+    }
+
+    .skills {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .badge {
+      background-color: #dcfce7;
+      color: #15803d;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+  </style>
+  <style>
+    .wk-back {
+      position: fixed; right: 16px; bottom: 16px; z-index: 2147483647;
+      padding: 9px 16px; background: #ffffff; color: #2f6b4f;
+      border: 1px solid #dfe5e2; border-radius: 999px;
+      font: 600 14px/1.2 system-ui, -apple-system, "Segoe UI", sans-serif;
+      text-decoration: none; box-shadow: 0 6px 18px rgba(0,0,0,.12);
+    }
+    .wk-back:hover, .wk-back:focus-visible { border-color: #2f6b4f; outline: none; }
+    @media (prefers-color-scheme: dark) {
+      .wk-back { background: #1c2327; color: #6fc49a; border-color: #2b363b; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="avatar">B</div>
+    <h2 class="name">Batnasan Erdenesambuu</h2>
+    <p class="role">Computer Engineering Student</p>
+    <hr>
+    <div class="skills">
+      <span class="badge">Researching</span>
+      <span class="badge">Communication</span>
+      <span class="badge">Emotional Intelligence</span>
+    </div>
+  </div>
+  <a class="wk-back" href="index.html">&larr; Week 3_1</a>
+</body>
+</html>

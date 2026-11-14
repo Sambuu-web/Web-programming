@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  
+  <title>Exercise 4 - Week 3_1</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    body {
+      font-family: sans-serif;
+      padding: 40px;
+    }
+    .margin-box {
+      background-color: #fde68a;
+      padding: 30px;
+      text-align: center;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .border-box {
+      background-color: #6b7280;
+      padding: 24px;
+      color: white;
+    }
+    .padding-box {
+      background-color: #bfdbfe;
+      padding: 24px;
+      color: #1e3a5f;
+    }
+    .content-box {
+      background-color: #ddd6fe;
+      padding: 24px;
+      color: #3730a3;
+    }
+    .layer-label {
+      font-size: 11px;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 4px;
+    }
+  </style>
+  <style>
+    .wk-back {
+      position: fixed; right: 16px; bottom: 16px; z-index: 2147483647;
+      padding: 9px 16px; background: #ffffff; color: #2f6b4f;
+      border: 1px solid #dfe5e2; border-radius: 999px;
+      font: 600 14px/1.2 system-ui, -apple-system, "Segoe UI", sans-serif;
+      text-decoration: none; box-shadow: 0 6px 18px rgba(0,0,0,.12);
+    }
+    .wk-back:hover, .wk-back:focus-visible { border-color: #2f6b4f; outline: none; }
+    @media (prefers-color-scheme: dark) {
+      .wk-back { background: #1c2327; color: #6fc49a; border-color: #2b363b; }
+    }
+  </style>
+</head>
+<body>
+  <div class="margin-box">
+    <span class="layer-label">Margin</span>
+    <div class="border-box">
+      <span class="layer-label">Border</span>
+      <div class="padding-box">
+        <span class="layer-label">Padding</span>
+        <div class="content-box">
+          <span class="layer-label">Content</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a class="wk-back" href="index.html">&larr; Week 3_1</a>
+</body>
+</html>
